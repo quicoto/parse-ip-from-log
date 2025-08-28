@@ -29,21 +29,27 @@ function parseIpFromLine(line) {
   return null;
 }
 
+// This block runs when the script is executed directly from the command line.
 if (require.main === module) {
+    // Create a readline interface to read the log file line by line.
     const rl = readline.createInterface({
     input: fs.createReadStream(logFile),
     crlfDelay: Infinity
     });
 
+    // Event listener for each line read from the log file.
     rl.on('line', (line) => {
+        // Parse the IP address from the current line.
         const ip = parseIpFromLine(line);
+        // If an IP address is successfully parsed, print the fail2ban command.
         if (ip) {
             console.log(`fail2ban-client set permanent-ban banip ${ip}`);
         }
     });
 
+    // Event listener for when the file reading is complete.
     rl.on('close', () => {
-    // All lines have been read
+        // No specific action needed when the file is closed.
     });
 }
 
