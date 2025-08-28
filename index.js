@@ -7,15 +7,25 @@ const logFile = 'log.txt';
 // that must appear at the very beginning of a string.
 const ipRegex = /^(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})/;
 
+/**
+ * Parses an IPv4 address from the beginning of a log line.
+ * @param {string} line The log line to parse.
+ * @returns {string|null} The extracted IPv4 address, or null if no valid IP address is found.
+ */
 function parseIpFromLine(line) {
+  // Attempt to match the IP address at the beginning of the line.
   const match = line.match(ipRegex);
+  // If a match is found, proceed with validation.
   if (match) {
     const ip = match[1];
+    // Split the IP into octets.
     const octets = ip.split('.');
+    // Validate that it's a correct IPv4 address.
     if (octets.length === 4 && octets.every(octet => octet >= 0 && octet <= 255)) {
       return ip;
     }
   }
+  // Return null if no valid IP is found.
   return null;
 }
 
