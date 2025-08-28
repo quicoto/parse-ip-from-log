@@ -7,19 +7,34 @@ const logFile = 'log.txt';
 // that must appear at the very beginning of a string.
 const ipRegex = /^(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})/;
 
-const rl = readline.createInterface({
-  input: fs.createReadStream(logFile),
-  crlfDelay: Infinity
-});
-
-rl.on('line', (line) => {
+function parseIpFromLine(line) {
   const match = line.match(ipRegex);
   if (match) {
     const ip = match[1];
-    console.log(`fail2ban-client set permanent-ban banip ${ip}`);
+    const octets = ip.split('.');
+    if (octets.length === 4 && octets.every(octet => octet >= 0 && octet <= 255)) {
+      return ip;
+    }
   }
-});
+  return null;
+}
 
-rl.on('close', () => {
-  // All lines have been read
-});
+if (require.main === module) {
+    const rl = readline.createInterface({
+    input: fs.createReadStream(logFile),
+    crlfDelay: Infinity
+    });
+
+    rl.on('line', (line) => {
+        const ip = parseIpFromLine(line);
+        if (ip) {
+            console.log(`fail2ban-client set permanent-ban banip ${ip}`);
+        }
+    });
+
+    rl.on('close', () => {
+    // All lines have been read
+    });
+}
+
+module.exports = { parseIpFromLine };

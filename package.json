@@ -1,0 +1,15 @@
+{
+  "name": "parse-ip-from-log",
+  "version": "1.0.0",
+  "description": "This repository contains a Node.js script that parses IP addresses from a log file (`log.txt`) and generates `fail2ban-client` commands to ban them.",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^30.1.1"
+  }
+}
