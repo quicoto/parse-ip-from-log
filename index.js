@@ -37,6 +37,9 @@ if (require.main === module) {
     crlfDelay: Infinity
     });
 
+    // Empty line for easier copy and paste
+    console.log(``);
+
     // Event listener for each line read from the log file.
     rl.on('line', (line) => {
         // Parse the IP address from the current line.
@@ -47,9 +50,11 @@ if (require.main === module) {
         }
     });
 
+
     // Event listener for when the file reading is complete.
     rl.on('close', () => {
-        // No specific action needed when the file is closed.
+        // Empty line for easier copy and paste
+        console.log(``);
     });
 }
 
