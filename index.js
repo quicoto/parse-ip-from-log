@@ -37,6 +37,9 @@ if (require.main === module) {
     crlfDelay: Infinity
     });
 
+    // Set to store unique IP addresses to avoid duplicates
+    const uniqueIps = new Set();
+
     // Empty line for easier copy and paste
     console.log(``);
 
@@ -44,8 +47,9 @@ if (require.main === module) {
     rl.on('line', (line) => {
         // Parse the IP address from the current line.
         const ip = parseIpFromLine(line);
-        // If an IP address is successfully parsed, print the fail2ban command.
-        if (ip) {
+        // If an IP address is successfully parsed and hasn't been seen before, add it to the set and print the fail2ban command.
+        if (ip && !uniqueIps.has(ip)) {
+            uniqueIps.add(ip);
             console.log(`fail2ban-client set permanent-ban banip ${ip}`);
         }
     });
