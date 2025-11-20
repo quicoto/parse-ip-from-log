@@ -4,7 +4,7 @@ This repository contains a Node.js script that parses IP addresses from a log fi
 
 ## Usage
 
-1. Get the log from ` tail -f /var/log/nginx/access.log | grep -E "POST.*wp-login.php"`
+1. Get the log from `tail -f /var/log/nginx/access.log | grep -E "POST.*wp-login.php"`
 2. Place your log file named `log.txt` in the same directory as the script.
 3. Run the script using Node.js:
 
